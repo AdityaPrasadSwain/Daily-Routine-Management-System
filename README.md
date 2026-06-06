@@ -97,7 +97,7 @@ npm run preview
 
 **Frontend Environment:**
 ```
-VITE_API_BASE_URL=http://localhost:8083/api
+VITE_API_BASE_URL=http://localhost:8084/api
 ```
 
 ### Backend Setup
@@ -109,7 +109,7 @@ cd drms-backend
 # Build with Maven
 mvn clean install
 
-# Run the application (Port 8083)
+# Run the application (Port 8084)
 mvn spring-boot:run
 
 # Build JAR for production
@@ -118,7 +118,7 @@ mvn clean package
 
 **Backend Configuration** (`application.properties`):
 ```properties
-server.port=8083
+server.port=8084
 spring.datasource.url=jdbc:mysql://localhost:3306/drms
 spring.datasource.username=root
 spring.datasource.password=your_password
@@ -138,11 +138,14 @@ USE drms;
 ```
 
 **Database Cleanup:**
+To reset your database and remove all tables, run:
 ```bash
-# Reset database (use with caution!)
 mysql -u root -p drms < clean_db.sql
+```
 
-# Modify mood constraints if needed
+**Modify Mood Constraints:**
+To modify mood-related database constraints:
+```bash
 mysql -u root -p drms < drop_mood_constraint.sql
 ```
 
@@ -199,7 +202,7 @@ mvn spring-boot:run       # Run application
 mvn clean package         # Create JAR file
 mvn test                 # Run tests
 
-# Windows batch scripts
+# Windows batch scripts (in drms-backend directory)
 start-backend.bat         # Start backend on Windows
 kill-port-8083.bat        # Kill process on port 8083
 verify_startup.bat        # Verify backend startup
@@ -208,40 +211,54 @@ test-ai-endpoints.bat     # Test AI endpoints
 
 ## 🔌 API Endpoints
 
-### Task Management
-- `GET /api/tasks` - List all tasks
-- `POST /api/tasks` - Create new task
-- `GET /api/tasks/{id}` - Get task details
-- `PUT /api/tasks/{id}` - Update task
-- `DELETE /api/tasks/{id}` - Delete task
-- `PUT /api/tasks/{id}/complete` - Mark task as complete
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register new user |
+| POST | `/auth/login` | Login user |
+| POST | `/auth/forgot-password` | Request password reset |
+| POST | `/auth/reset-password` | Reset password |
 
-### Routine Management
-- `GET /api/routines` - List all routines
-- `POST /api/routines` - Create routine
-- `GET /api/routines/{id}` - Get routine details
-- `PUT /api/routines/{id}` - Update routine
-- `DELETE /api/routines/{id}` - Delete routine
+### Tasks Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/tasks` | Get all tasks for user |
+| POST | `/tasks` | Create new task |
+| PUT | `/tasks/{id}` | Update task |
+| DELETE | `/tasks/{id}` | Delete task |
+| GET | `/tasks/history` | Get task history |
+| POST | `/tasks/{id}/reschedule` | Reschedule task |
+| PATCH | `/tasks/{id}/focus` | Update focus stats |
 
-### Progress Tracking
-- `GET /api/progress` - Get progress metrics
-- `GET /api/progress/daily` - Daily progress
-- `GET /api/progress/weekly` - Weekly progress
-- `GET /api/progress/monthly` - Monthly progress
+### Routines Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/routines` | Get all routines |
+| POST | `/routines` | Create routine |
 
-### Mood Tracking
-- `GET /api/mood` - List mood entries
-- `POST /api/mood` - Add mood entry
-- `GET /api/mood/{id}` - Get mood details
-- `PUT /api/mood/{id}` - Update mood entry
+### Reviews & Feedback
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/reviews/task/{taskId}` | Get review for task |
+| POST | `/reviews` | Submit review |
 
-### AI Endpoints
-- `POST /api/ai/suggest-tasks` - Get task suggestions
-- `GET /api/ai/insights` - Get productivity insights
-- `GET /api/ai/recommendations` - Get recommendations
-- `POST /api/ai/analyze` - Analyze productivity patterns
+### Analytics & AI
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/analytics/dashboard` | Get dashboard stats |
+| GET | `/ai/suggestions` | Get AI suggestions |
+| GET | `/ai/insight` | Get AI insights |
 
-See `drms-backend/api_docs.md` for detailed API documentation.
+### Alarms
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/alarms/upload` | Upload alarm sound |
+
+**Base URL**: `http://localhost:8084/api`
+
+**Headers**: `Authorization: Bearer <token>`
+
+For detailed API documentation, see the [API Documentation File](drms-backend/api_docs.md)
 
 ## 🗄️ Database Schema
 
@@ -267,7 +284,7 @@ See `drms-backend/api_docs.md` for detailed API documentation.
 
 ### Ports
 - **Frontend**: 5173 (Vite development server)
-- **Backend**: 8083 (Spring Boot application)
+- **Backend**: 8084 (Spring Boot application)
 - **Database**: 3306 (MySQL default)
 
 ### Key Configuration Files
@@ -293,10 +310,9 @@ See `drms-backend/api_docs.md` for detailed API documentation.
 - **Build errors**: Check Node.js version compatibility
 
 ### Backend Issues
-- **Port 8083 in use**:
+- **Port 8084 in use**:
   ```bash
-  # Windows
-  cd drms-backend
+  # Windows - Run from drms-backend directory
   kill-port-8083.bat
   ```
   Or change `server.port` in `application.properties`
@@ -312,7 +328,7 @@ See `drms-backend/api_docs.md` for detailed API documentation.
   ```
 
 ### Database Issues
-- **Reset database**:
+- **Reset database** (WARNING: Deletes all data):
   ```bash
   mysql -u root -p drms < clean_db.sql
   ```
@@ -347,7 +363,7 @@ See `drms-backend/api_docs.md` for detailed API documentation.
 
 4. **Access application**
    - Frontend: http://localhost:5173
-   - Backend API: http://localhost:8083/api
+   - Backend API: http://localhost:8084/api
 
 ### Testing
 
@@ -357,7 +373,7 @@ cd drms-backend
 test-ai-endpoints.bat
 ```
 
-**Verify Startup:**
+**Verify Startup (Windows):**
 ```bash
 cd drms-backend
 verify_startup.bat
@@ -385,14 +401,58 @@ This project is open source. Check the repository for license details.
 **Language**: JavaScript (100%)  
 **Default Branch**: main  
 **Open Issues**: 0  
+**GitHub URL**: https://github.com/AdityaPrasadSwain/Daily-Routine-Management-System
 
-## 📞 Support
+## 📞 Support & Documentation
+
+### Important Files
+
+1. **API Documentation**
+   - Path: `drms-backend/api_docs.md`
+   - Contains complete API endpoint reference
+   - View raw: https://raw.githubusercontent.com/AdityaPrasadSwain/Daily-Routine-Management-System/main/drms-backend/api_docs.md
+
+2. **Database Cleanup Script**
+   - Path: `clean_db.sql`
+   - Used to reset the database (WARNING: Deletes all data)
+   - View raw: https://raw.githubusercontent.com/AdityaPrasadSwain/Daily-Routine-Management-System/main/clean_db.sql
+
+3. **Mood Constraint Script**
+   - Path: `drop_mood_constraint.sql`
+   - Used to modify mood-related database constraints
+   - View raw: https://raw.githubusercontent.com/AdityaPrasadSwain/Daily-Routine-Management-System/main/drop_mood_constraint.sql
+
+4. **Backend Startup Script** (Windows)
+   - Path: `drms-backend/start-backend.bat`
+   - Automated script to start the backend
+   - View raw: https://raw.githubusercontent.com/AdityaPrasadSwain/Daily-Routine-Management-System/main/drms-backend/start-backend.bat
+
+### Issue Tracking
+- **GitHub Issues**: https://github.com/AdityaPrasadSwain/Daily-Routine-Management-System/issues
+- Report bugs, request features, and track development
+
+### Getting Help
 
 For issues, questions, or suggestions:
 1. Check troubleshooting section above
 2. Review API documentation in `drms-backend/api_docs.md`
 3. Open a GitHub issue with detailed information
 4. Include error messages and system information
+
+## Windows Users - Quick Reference
+
+To run backend startup script:
+```bash
+cd drms-backend
+start-backend.bat
+```
+
+This script will:
+1. ✅ Check for existing process on port 8084
+2. ✅ Kill the process if found
+3. ✅ Run Maven clean
+4. ✅ Start Spring Boot application
+5. ✅ Set JVM memory options (-Xms1g -Xmx2g)
 
 ## 🎯 Future Enhancements
 
@@ -407,27 +467,10 @@ For issues, questions, or suggestions:
 - [ ] Performance optimization
 - [ ] Enhanced AI recommendations
 
-## 📊 Quick Links
-
-- **API Documentation**: [api_docs.md](drms-backend/api_docs.md)
-- **Issue Tracker**: [GitHub Issues](https://github.com/AdityaPrasadSwain/Daily-Routine-Management-System/issues)
-- **Database Cleanup**: [clean_db.sql](clean_db.sql)
-- **Backend Startup**: [start-backend.bat](drms-backend/start-backend.bat)
-
-## 🚀 Getting Help
-
-### Windows Users
-- Use `drms-backend/start-backend.bat` to start backend
-- Use `drms-backend/kill-port-8083.bat` if port is already in use
-- Use `drms-backend/verify_startup.bat` to verify startup
-
-### All Users
-- Ensure both frontend (5173) and backend (8083) are running
-- Check application.properties for correct database credentials
-- Review logs for detailed error messages
-
 ---
 
 **Start managing your daily routine efficiently! 🎯**
 
 For more information, visit the [GitHub repository](https://github.com/AdityaPrasadSwain/Daily-Routine-Management-System).
+
+**Last Updated**: June 6, 2026
