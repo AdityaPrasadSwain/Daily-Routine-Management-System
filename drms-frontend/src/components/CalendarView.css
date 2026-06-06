@@ -1,0 +1,162 @@
+/* Google Calendar-inspired Styling with Theme Support */
+
+.fc {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    --fc-border-color: var(--fc-border-color) !important;
+    --fc-page-bg-color: var(--fc-page-bg-color) !important;
+    --fc-neutral-bg-color: var(--fc-neutral-bg-color) !important;
+    --fc-list-event-hover-bg-color: var(--fc-neutral-bg-color) !important;
+    --fc-today-bg-color: var(--fc-today-bg-color) !important;
+    color: var(--fc-text-color) !important;
+}
+
+/* Header Toolbar */
+.fc .fc-toolbar-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: var(--fc-header-toolbar-title-color) !important;
+}
+
+/* Force override of default button styles using scoped selector */
+/* Force override of default button styles using max specificity */
+/* --- Button Styling with Strict State Handling --- */
+
+/* 1. Base Button Style (Inactive) */
+html body .custom-calendar-root .fc .fc-button {
+    background-color: var(--fc-button-bg-color) !important;
+    border: 1px solid var(--fc-button-border-color) !important;
+    color: var(--fc-button-text-color) !important;
+    text-transform: capitalize !important;
+    font-weight: 500 !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out !important;
+    background-image: none !important;
+    outline: none !important;
+    opacity: 1 !important;
+    /* Ensure opacity is full */
+}
+
+/* 2. Hover State */
+html body .custom-calendar-root .fc .fc-button:hover {
+    background-color: var(--fc-button-hover-bg-color) !important;
+    border-color: var(--fc-button-hover-border-color) !important;
+    color: var(--fc-button-text-color) !important;
+    /* Keep text color same as inactive */
+    z-index: 2;
+    /* Bring above borders */
+}
+
+/* 3. Active / Focus / Primary State */
+html body .custom-calendar-root .fc .fc-button-primary:not(:disabled).fc-button-active,
+html body .custom-calendar-root .fc .fc-button:not(:disabled).fc-button-active,
+html body .custom-calendar-root .fc .fc-button:focus {
+    background-color: var(--fc-button-active-bg-color) !important;
+    border-color: var(--fc-button-active-border-color) !important;
+    color: var(--fc-button-active-text-color) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    z-index: 3;
+}
+
+/* Today Button - Force active color for visibility if specific today styling is desired, else inherit */
+.custom-calendar-root .fc-today-button {
+    background-color: var(--fc-today-color) !important;
+    color: var(--fc-today-text-color) !important;
+    border: none !important;
+    opacity: 1 !important;
+}
+
+/* Calendar Grid */
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border-color: var(--fc-border-color) !important;
+}
+
+.fc-col-header-cell {
+    padding: 12px 0 !important;
+    background-color: var(--fc-page-bg-color) !important;
+    border-bottom: 2px solid var(--fc-border-color) !important;
+}
+
+.fc-col-header-cell-cushion {
+    text-decoration: none !important;
+    color: var(--fc-text-color) !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    opacity: 0.8;
+}
+
+/* Day Cells */
+.fc-daygrid-day-number {
+    text-decoration: none !important;
+    color: var(--fc-text-color) !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    padding: 8px !important;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 4px !important;
+    opacity: 0.8;
+}
+
+.fc-daygrid-day.fc-day-today {
+    background-color: transparent !important;
+}
+
+.custom-calendar-root .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+    background-color: var(--fc-today-color) !important;
+    color: var(--fc-today-text-color) !important;
+    opacity: 1;
+}
+
+/* Past Dates */
+.past-date-cell {
+    background-color: var(--fc-past-date-bg) !important;
+    background-image: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            var(--fc-past-date-pattern) 10px,
+            var(--fc-past-date-pattern) 20px) !important;
+    cursor: default !important;
+    opacity: 1;
+    /* Reset opacity as we handle color internally */
+}
+
+/* Day Frames Background */
+.fc-daygrid-day-frame {
+    background-color: var(--fc-page-bg-color);
+}
+
+/* Events */
+.fc-event {
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 2px !important;
+    cursor: pointer !important;
+    transition: transform 0.1s ease-in-out !important;
+}
+
+.fc-event:hover {
+    transform: scale(1.01) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    z-index: 5 !important;
+}
+
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+
+/* List View (if used) */
+.fc-list-day-cushion {
+    background-color: var(--fc-neutral-bg-color) !important;
+}
+
+.fc-list-event:hover td {
+    background-color: var(--fc-neutral-bg-color) !important;
+}

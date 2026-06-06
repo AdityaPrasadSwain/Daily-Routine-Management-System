@@ -1,0 +1,24 @@
+# Logs
+*.log
+
+# Backend (Java / Maven / Spring Boot)
+drms-backend/target/
+drms-backend/.idea/
+drms-backend/.vscode/
+drms-backend/*.iml
+drms-backend/startup.log
+
+# Frontend (Node / Vite / React)
+drms-frontend/node_modules/
+drms-frontend/dist/
+drms-frontend/dist-ssr/
+drms-frontend/.eslintcache
+
+# Local user uploads
+uploads/
+
+# IDE & OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
