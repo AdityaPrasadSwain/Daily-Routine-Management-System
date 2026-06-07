@@ -151,6 +151,7 @@ export const lightTheme = createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
+                    colorScheme: 'light',
                     scrollbarColor: '#9ca3af #f3f4f6',
                     '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
                         backgroundColor: '#f3f4f6',
@@ -270,6 +271,7 @@ export const darkTheme = createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
+                    colorScheme: 'dark',
                     scrollbarColor: '#475569 #1e293b',
                     '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
                         backgroundColor: '#1e293b',

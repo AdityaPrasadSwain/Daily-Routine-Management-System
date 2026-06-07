@@ -16,7 +16,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         // Allow all common frontend ports
         configuration.setAllowedOrigins(
-                Arrays.asList("http://localhost:5173", "http://localhost:5178", "http://localhost:3000"));
+                Arrays.asList("http://localhost:5173", "http://localhost:5178", "http://localhost:5179", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

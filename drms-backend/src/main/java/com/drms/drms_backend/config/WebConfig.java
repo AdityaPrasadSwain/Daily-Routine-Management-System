@@ -13,6 +13,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Serve uploaded files from the absolute path of the uploads directory
         String uploadPath = Paths.get("uploads").toAbsolutePath().toUri().toString();
+        if (!uploadPath.endsWith("/")) {
+            uploadPath += "/";
+        }
 
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations(uploadPath);

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "review_insights")
+@Table(name = "review_insights", indexes = {
+    @Index(name = "idx_review_insights_wr_id", columnList = "weekly_review_id")
+})
 public class ReviewInsight {
 
     @Id

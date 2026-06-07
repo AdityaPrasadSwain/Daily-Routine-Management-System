@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "goal_reflections")
+@Table(name = "goal_reflections", indexes = {
+    @Index(name = "idx_goal_reflections_goal_date", columnList = "goal_id, reflection_date DESC")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

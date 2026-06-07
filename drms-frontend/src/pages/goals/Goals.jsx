@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/axiosConfig';
 import Swal from 'sweetalert2';
 import GoalCard from '../../components/goals/GoalCard';
-
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { parseISO, format } from 'date-fns';
 
 const Goals = () => {
     const navigate = useNavigate();
@@ -287,15 +290,42 @@ const Goals = () => {
                             <MenuItem value="LONG_TERM">Long Term</MenuItem>
                         </Select>
                     </FormControl>
-                    <TextField
-                        margin="dense"
-                        label="Target Date"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        value={newGoal.targetDate}
-                        onChange={(e) => setNewGoal({ ...newGoal, targetDate: e.target.value })}
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                            label="Target Date"
+                            value={newGoal.targetDate ? parseISO(newGoal.targetDate) : null}
+                            onChange={(newValue) => {
+                                setNewGoal({ 
+                                    ...newGoal, 
+                                    targetDate: newValue ? format(newValue, 'yyyy-MM-dd') : '' 
+                                });
+                            }}
+                            slotProps={{
+                                textField: {
+                                    margin: "dense",
+                                    fullWidth: true,
+                                    variant: "outlined"
+                                },
+                                desktopPaper: {
+                                    elevation: 8,
+                                    sx: {
+                                        borderRadius: 3,
+                                        border: '1px solid rgba(129, 140, 248, 0.2)',
+                                        '& .MuiPickersDay-root.Mui-selected': {
+                                            background: 'linear-gradient(135deg, #6366f1 0%, #a5b4fc 100%)',
+                                            boxShadow: '0 4px 10px rgba(99, 102, 241, 0.4)',
+                                            color: '#fff',
+                                            fontWeight: 'bold',
+                                        },
+                                        '& .MuiPickersDay-today': {
+                                            borderColor: '#818cf8',
+                                            borderWidth: 2
+                                        }
+                                    }
+                                }
+                            }}
+                        />
+                    </LocalizationProvider>
                 </DialogContent>
                 <DialogActions sx={{ p: 3, pt: 2 }}>
                     <Button onClick={() => setOpen(false)} sx={{ borderRadius: '8px' }}>

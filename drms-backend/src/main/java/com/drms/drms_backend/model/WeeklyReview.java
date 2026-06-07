@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "weekly_reviews")
+@Table(name = "weekly_reviews", indexes = {
+    @Index(name = "idx_weekly_reviews_user_start", columnList = "userId, startDate")
+})
 public class WeeklyReview {
 
     @Id
@@ -28,7 +30,7 @@ public class WeeklyReview {
     @Column(columnDefinition = "TEXT")
     private String keyThemes; // Comma separated keywords
 
-    @OneToMany(mappedBy = "weeklyReview", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "weeklyReview", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReviewInsight> insights = new ArrayList<>();
 
     // Standard Getters and Setters

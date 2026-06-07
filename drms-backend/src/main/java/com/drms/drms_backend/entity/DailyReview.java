@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "daily_reviews")
+@Table(name = "daily_reviews", indexes = {
+    @Index(name = "idx_daily_reviews_user_date", columnList = "user_id, date")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

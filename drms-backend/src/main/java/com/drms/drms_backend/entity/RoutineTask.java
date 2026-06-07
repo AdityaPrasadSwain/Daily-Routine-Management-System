@@ -10,7 +10,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "tasks", indexes = {
+    @Index(name = "idx_tasks_user_id", columnList = "user_id"),
+    @Index(name = "idx_tasks_routine_id", columnList = "routine_id"),
+    @Index(name = "idx_tasks_user_date", columnList = "user_id, due_date")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

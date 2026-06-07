@@ -11,7 +11,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "deep_work_sessions")
+@Table(name = "deep_work_sessions", indexes = {
+    @Index(name = "idx_deep_work_user_id", columnList = "user_id"),
+    @Index(name = "idx_deep_work_user_time", columnList = "user_id, start_time")
+})
 @Data
 @Builder
 @NoArgsConstructor

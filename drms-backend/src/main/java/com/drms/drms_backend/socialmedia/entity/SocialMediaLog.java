@@ -11,7 +11,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "social_media_logs")
+@Table(name = "social_media_logs", indexes = {
+    @Index(name = "idx_social_logs_user_id", columnList = "user_id"),
+    @Index(name = "idx_social_logs_user_date", columnList = "user_id, date")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

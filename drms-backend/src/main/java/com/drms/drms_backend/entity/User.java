@@ -14,7 +14,11 @@ import java.util.Collections;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+    @Index(name = "idx_users_email", columnList = "email", unique = true),
+    @Index(name = "idx_users_username", columnList = "username", unique = true),
+    @Index(name = "idx_users_reset_token", columnList = "reset_token")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
